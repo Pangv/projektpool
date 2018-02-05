@@ -9,15 +9,33 @@
 </template>
 
 <script>
+
+import Firebase from 'firebase';
+
+let config = {
+    apiKey: "AIzaSyC50SbWcqYE-M6mGrqudrXfX4bYk7xcylk",
+    authDomain: "v-rentazubi.firebaseapp.com",
+    databaseURL: "https://v-rentazubi.firebaseio.com",
+    projectId: "v-rentazubi",
+    storageBucket: "v-rentazubi.appspot.com",
+    messagingSenderId: "1023136654744"
+  };
+
+let firebase = Firebase.initializeApp(config);
+let db = firebase.database();
+
+let projectRef = db.ref('projects');
+
 export default {
-  name: 'app'
+  name: 'app',
+  firebase: {
+    projects: projectRef
+  }
 }
 </script>
 
 <style>
-body {
-  margin: 0;
-}
+
 
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
