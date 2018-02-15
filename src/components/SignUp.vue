@@ -1,19 +1,25 @@
 <template>
-<form action="">
+<div id="sign-up">
+<form v-on:submit.prevent="onSubmit">
     <div class="form-group">
-    <label for="inputEmail">Anmeldename</label>
-    <input type="email" class="form-control" id="inputEmail" autocomplete="true" aria-describedby="emailHelp" placeholder="Enter email" v-model="email">
-    <small id="emailHelp" class="form-text text-muted">Wir werden dein Mail mit niemanden teilen</small>
+    <label for="inputEmail">Email Adresse</label>
+    <input type="email" class="form-control" id="inputEmail" autocomplete="true" aria-describedby="emailHelp" placeholder="Email Adress eingeben" v-model="email">
+    <small id="emailHelp" class="form-text text-muted">Wir werden deine Mail mit niemanden teilen. Versprochen.</small>
+  </div>
+
+   <div class="form-group">
+    <label for="inputName">Anmeldename</label>
+    <input type="text" class="form-control" id="inputName" autocomplete="true" placeholder="007" v-model="loginName">
   </div>
 
   <div class="form-group">
     <label for="inputPassword">Passwort</label>
-    <input type="password" class="form-control" id="inputPassword" autocomplete="true" placeholder="Password" v-model="password">
+    <input type="password" class="form-control" id="inputPassword" autocomplete="false" placeholder="Passwort" v-model="password">
   </div>
 
   <div class="form-group">
     <label for="checkPassword">Passwort wiederholen</label>
-    <input type="password" class="form-control" id="checkPassword" autocomplete="true" placeholder="Password" v-model="checkpassword">
+    <input type="password" class="form-control" id="checkPassword" autocomplete="false" placeholder="Passwort" v-model="checkpassword">
   </div>
   
    <div class="form-check">
@@ -23,6 +29,7 @@
   
   <button type="submit" class="btn btn-primary" @click="signUp">Registrieren</button>
 </form>  
+</div>
 </template>
 
 <script>
@@ -33,7 +40,8 @@ export default {
     return {
       email: "",
       password: "",
-      checkpassword: ""
+      checkpassword: "",
+      loginName: ""
     };
   },
   methods: {
@@ -41,17 +49,21 @@ export default {
       const email = this.email;
       const password = this.password;
       const password2 = this.checkpassword;
+      const loginName = this.loginName;
       if (password === password2) {
         firebase
           .auth()
           .createUserWithEmailAndPassword(email, password)
+          .then(user => {
+            this.$router.replace("/dashboard");
+          })
           .catch(function(error) {
             console.error(error.message);
             let errorCode = error.code;
             let errorMessage = error.message;
           });
       } else {
-        console.error('Passwörter stimmen nicht überein')
+        console.error("Passwörter stimmen nicht überein");
       }
     }
   }

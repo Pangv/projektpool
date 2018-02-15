@@ -1,16 +1,23 @@
 <template>
   <div class="hello">
-   
+    <Nav></Nav>
+    <h1>Erfolgreich eingeloggt</h1>
+    <h2>{{msg}}</h2>
   </div>
 </template>
 
 <script>
+import Nav from "./Nav.vue";
+
 export default {
-  name: 'hello',
+  name: 'dashboard',
   data () {
     return {
       msg: 'Welcome to Your Vue.js PWA'
     }
+  },
+  components: {
+    Nav
   }
 }
 </script>
@@ -19,19 +26,9 @@ export default {
 <style>
 h1, h2 {
   font-weight: normal;
+  text-align: center;
+  margin: 0 auto;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
 
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #35495E;
-}
 </style>

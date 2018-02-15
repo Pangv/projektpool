@@ -25,8 +25,6 @@ router.beforeEach((to, from, next) => {
 
 store.commit('increment');
 
-console.log(store.state.count);
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

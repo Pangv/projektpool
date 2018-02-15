@@ -1,15 +1,19 @@
 <template>
-<div id="login" class="container">
-<h1>Projekt Pool</h1>
-<a id="sign-in" @click="changeType('sign-in')" class="active">Sign In</a>
-<a id="sign-up" @click="changeType('sign-up')">Sign Up</a>
-<div v-if="type === 'sign-in'">
-    <SignIn/>
-</div>
-<div v-else>
-    <SignUp />
-</div>
-</div>
+  <div id="login">
+    <h1>Projekt Pool</h1>
+    <div>
+      <div id="links">
+        <a id="sign-in" @click="changeType" class="active">Sign In</a>
+        <a id="sign-up" @click="changeType">Sign Up</a>
+      </div>
+    </div>
+    <div v-if="type === 'sign-in'">
+        <SignIn/>
+    </div>
+    <div v-else>
+        <SignUp />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -28,21 +32,18 @@ export default {
     SignUp
   },
   methods: {
-    changeType(type) {
+    changeType(event) {
       const signIn = document.getElementById("sign-in");
       const signUp = document.getElementById("sign-up");
-
-      if (type === "sign-in") {
+      if (this.type === "sign-up" && event.target.id === "sign-in") {
         this.type = "sign-in";
         signIn.classList.toggle("active");
         signUp.classList.toggle("active");
-      } else {
+      } else if (this.type === "sign-in" && event.target.id === "sign-up") {
         this.type = "sign-up";
         signIn.classList.toggle("active");
         signUp.classList.toggle("active");
       }
-
-      console.log(event.target);
     }
   }
 };
@@ -56,14 +57,22 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
 
-  width: 416px;
+  max-width: 416px;
   height: 580px;
   color: #fff;
+}
+#links {
+  margin-bottom: 1rem;
 }
 a {
   text-transform: uppercase;
   margin-right: 8rem;
-  margin-bottom: 2rem;
+  border-bottom: 0px;
+
+  /*Underline Transition*/
+  transition-property: border-bottom;
+  transition-timing-function: ease;
+  transition-duration: 200ms;
 }
 a.active {
   border-bottom: 3px solid rgb(50, 207, 255);
@@ -85,6 +94,7 @@ input {
 }
 button {
   border-radius: 50px;
-  width: 100%;
+  margin-bottom: 0.5rem;
+  max-width: 100%;
 }
 </style>
