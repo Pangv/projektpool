@@ -55,7 +55,7 @@ export default {
           .auth()
           .createUserWithEmailAndPassword(email, password)
           .then(user => {
-            this.$router.replace("/dashboard");
+            this.$router.replace("dashboard");
           })
           .catch(function(error) {
             console.error(error.message);
